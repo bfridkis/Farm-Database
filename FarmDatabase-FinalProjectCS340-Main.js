@@ -39,7 +39,7 @@ app.use(express.static('public'));
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
-app.set('port', 6710);
+app.set('port', process.env.PORT || 5000);
 app.set('mysql', mysql);
 app.set('selectTables', selectTables);
 app.set('makeSQL', makeSQL);
