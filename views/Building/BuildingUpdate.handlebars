@@ -1,0 +1,34 @@
+<h1>{{title}}</h1>	
+<form id="updateBuilding" action="/buildingTable" method="post">
+	<table>
+		<tbody>
+			<tr>
+				<td class="formCell"><label for="name">Name: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput" id="name" name="name" value="{{building.name}}"></td>
+				<td class="formCell"></td>
+			</tr>
+			<tr>
+				<td class="formCell"><label for="year_built">Year Built: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput numeric" id="year_built" name="year_built" value="{{building.year_built}}"></td>
+				<td class="formCell"><span class="labelText"><em>Year Built must be an integer greater than or equal to 0.</em></span></td>
+			</tr>
+			<tr>
+				<td class="formCell" colspan="3">
+					<button class="formButton" id="updateButton" type="submit">Update Building</button>
+					<button class="reset formButton" id="resetUpdatePage">Clear Inputs</button>
+					<button class="formButton" type="submit" name="canceled" value="cancel">Cancel</button>
+				</td>
+			</tr>
+		</tbody>	
+	</table>
+	<input type="hidden" name="id" value={{building.id}}>
+</form>
+
+<form action="/buildingTable" method="post">
+	<button class="homePage" type="submit" value="Home Page" name="Home Page">Home Page</button>
+</form>
+{{#each jsscriptsUpdate}}
+	<script src="{{this}}"></script>
+{{/each}}
+<script defer>updateRow('{{building.id}}', 'Building', null, numericInputValidator.bind(null, true));</script>
+<script defer>resetForm();</script>

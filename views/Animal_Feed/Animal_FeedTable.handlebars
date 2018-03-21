@@ -1,0 +1,78 @@
+<h1>{{title}}</h1>
+<form id="addAnimalFeed" action="/animalFeedTable" method="post">
+	<table>
+		<tbody>
+			<tr>
+				<td class="formCell formLabel"><label for="animal_name">Animal Name: </label></td>
+				<td class="formCell">
+					<select class="resettableSelector" id="animal_name" name="animal_name">
+					<option value="all">*</option>
+					{{#each animal_types}}
+						<option value="{{name}}">{{name}}</option>
+					{{/each}}
+					</select>
+				</td>
+				<td class="formCell"><span class="labelText"><em>Combination of Animal Name and Feed ID must be unique.</em></span></td>
+			<tr>	
+				<td class="formCell formLabel"><label for="feed_id">Feed ID: </label>
+				<td class="formCell">
+					<select class="resettableSelector" id="feed_id" name="feed_id">
+					<option value="all">*</option>
+					{{#each feeds}}
+						<option value="{{id}}">{{id}}</option>
+					{{/each}}
+					</select>
+				</td>
+				<td class="formCell"><span class="labelText"><em>Combination of Animal Name and Feed ID must be unique.</em></span></td>
+			</tr>
+		</tbody>
+	</table>		
+	<input id="Add Instance" value="Add Instance" type="submit">
+	<input type="hidden" id="~filterCriteriaChangedFlag" value="false" name="~filterCriteriaChangedFlag">
+	<input id="Filter Table" value="Filter Table" type="submit">
+	<span class="labelText"><em>Use the form fields above to add to or filter the table.</em></span>
+	<input class= "reset" id="reset" type="submit" name="reset" value="Reset Form">
+</form>
+<table>
+	<thead>
+		<th>Animal Name</th>
+		<th>Feed ID</th>
+	</thead>
+	<tbody>
+		{{#each animal_feeds}}
+		<tr>
+			<td class="animal_nameRowDataUnique">{{animal_name}}</td>
+			<td class="feed_idRowDataUnique">{{feed_id}}</td>
+			<td class="deleteButton"><button onclick="deleteRow('{{feed_id}}~{{animal_name}}', 'animalFeed')">Delete</button></td>
+			<td class="updateLink"><a href="/animalFeedTable/{{feed_id}}~{{animal_name}}">Update</a></td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+<table style="display:none">
+	<thead>
+		<th>Animal Name</th>
+		<th>Feed ID</th>
+	</thead>
+	<tbody>
+		{{#each animal_feedsUniqueCheckForUpdate}}
+		<tr>
+			<td class="animal_nameRowDataUnique">{{animal_name}}</td>
+			<td class="feed_idRowDataUnique">{{feed_id}}</td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>	
+<form action="/animalFeedTable" method="post">
+	<button class="homePage" type="submit" value="Home Page" name="Home Page">Home Page</button>
+</form>
+{{#each jsscriptsTableView}}
+	<script src="{{this}}"></script>
+{{/each}}
+{{#each formFill}}
+	<script defer>formFill("{{this.key}}", "{{this.value}}");</script>
+	<input class="filterCriteriaCache" type="hidden" id="{{this.key}}FilterCriteriaCache" value="{{this.value}}">
+{{/each}}
+<script defer>sendParameterAddOrFilter(uniqueValidator.bind(null, [["animal_name", "feed_id"]]));</script>
+<script defer>criteriaChangedStatus();</script>
+<script defer>resetForm();</script>

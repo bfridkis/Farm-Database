@@ -1,0 +1,102 @@
+<h1>{{title}}</h1>
+<form id="addEmployee" action="/employeeTable" method="post">
+	<table>
+		<tbody>
+			<tr>
+				<td class="formCell formLabel"><label for="first_name">First Name: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput notNull" id="first_name" name="first_name"></td>
+				<td class="formCell"><span class="labelText"><em>Combination of First and Last Name must be unique. Cannot be null.</em></span></td>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="last_name">Last Name: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput notNull" id="last_name" name="last_name"></td>
+				<td class="formCell"><span class="labelText"><em>Combination of First and Last Name must be unique. Cannot be null.</em></span></td>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="dob">Date of Birth: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput date" id="dob" name="dob"></td>
+				<td class="formCell"><span class="labelText"><em>Please enter date in YYYY-MM-DD Format!</em></span></td>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="hourly_wage">Hourly Wage: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput numeric notNull" id="hourly_wage" name="hourly_wage"></td>
+				<td class="formCell"><span class="labelText"><em>Hourly Wage must be a number greater than or equal to 0. Cannot be null.</em></span></td>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="phone_number">Phone Number: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput numeric notNull" id="phone_number" name="phone_number"></td>
+				<td class="formCell"><span class="labelText"><em>Phone Number must be a 10 digit number. (Do not include hyphens or apostrophes.) Cannot be null.</em></span></td>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="address">Address: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput" id="address" name="address"></td>
+				<td class="formCell"></td>
+			</tr>
+		</tbody>
+	</table>
+	<input id="Add Instance" value="Add Instance" type="submit">
+	<input type="hidden" id="~filterCriteriaChangedFlag" value="false" name="~filterCriteriaChangedFlag">
+	<input id="Filter Table" value="Filter Table" type="submit">
+	<span class="labelText"><em>Use the form fields above to add to or filter the table.</em></span>
+	<input class= "reset" id="reset" type="submit" name="reset" value="Reset Form">
+	<div class="instructions">When adding, enter <b>null</b> into input fields or leave them blank for a null entry.<br /> 
+		When filtering, enter <b>null</b> into an input field to filter on 'IS NULL', or leave it blank to omit the filter.<br />
+		<br />
+		<em>Warning: If you enter a date in the valid format but with values that do not make an actual date,<br />
+		&emsp;&emsp;&emsp;&emsp;(e.g. 2018-99-99) a value of '0000-00-00' will be entered into the table for that date<br />
+		&emsp;&emsp;&emsp;&emsp;field's attribute.</em>
+	</div>	
+</form>
+<table>
+	<thead>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Date of Birth</th>
+		<th>Hourly Wage</th>
+		<th>Phone Number</th>
+		<th>Address</th>
+	</thead>
+	<tbody>
+		{{#each employees}}
+		<tr>
+			<td class="first_nameRowDataUnique">{{first_name}}</td>
+			<td class="last_nameRowDataUnique">{{last_name}}</td>
+			<td class="alignCellContentCenter">{{dob}}</td>
+			<td class="alignCellContentCenter">{{hourly_wage}}</td>
+			<td class="alignCellContentCenter">{{phone_number}}</td>
+			<td class="alignCellContentCenter">{{address}}</td>
+			<td class="deleteButton"><button onclick="deleteRow({{id}}, 'employee')">Delete</button></td>
+			<td class="updateLink"><a href="/employeeTable/{{id}}">Update</a></td>
+		</tr>
+		{{/each}}
+	</tbody>	
+</table>
+<table style="display:none">
+	<thead>
+		<th>First Name</th>
+		<th>Last Name</th>
+	</thead>
+	<tbody>
+		{{#each employeesUniqueCheckForUpdate}}
+		<tr>
+			<td class="first_nameRowDataUnique">{{first_name}}</td>
+			<td class="last_nameRowDataUnique">{{last_name}}</td>
+		</tr>
+		{{/each}}
+	</tbody>	
+</table>
+<form action="/employeeTable" method="post">
+	<button class="homePage" type="submit" value="Home Page" name="Home Page">Home Page</button>
+</form>
+{{#each jsscriptsTableView}}
+	<script src="{{this}}"></script>
+{{/each}}
+{{#each formFill}}
+	<script defer>formFill("{{this.key}}", "{{this.value}}");</script>
+	<input class="filterCriteriaCache" type="hidden" id="{{this.key}}FilterCriteriaCache" value="{{this.value}}">
+{{/each}}
+<script defer>sendParameterAddOrFilter(uniqueValidator.bind(null, [["first_name", "last_name"]]));</script>
+<script defer>criteriaChangedStatus();</script>
+<script defer>dateInputValidator();</script>
+<script defer>resetForm();</script>
+<script defer>numericInputValidator(null, [{phone_number : 10}]);</script>

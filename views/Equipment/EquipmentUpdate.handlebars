@@ -1,0 +1,74 @@
+<h1>{{title}}</h1>	
+<form id="addEquipment" action="/equipmentTable" method="post">
+	<table>
+		<tbody>
+			<tr>
+				<td class="formCell formLabel"><label for="name">Name: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput" id="name" name="name" value="{{equipment.name}}"></td>
+				<td class="formCell"></td>
+			</tr>
+			<tr>		
+				<td class="formCell formLabel"><label for="building">Building: </label></td>
+				<td class="formCell">
+					<select class="resettableSelector" id="building" name="building">
+					<option value="null">null</option>
+					{{#each buildings}}
+						<option value="{{id}}">{{id}}</option>
+					{{/each}}
+					</select>
+				</td>
+				<td class="formCell"></td>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="doa">Date of Aquisition: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput date" id="doa" name="doa" value="{{equipment.doa}}"></td>
+				<td class="formCell"><span class="labelText"><em>Please enter date in YYYY-MM-DD Format!</em></span></td>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="last_maintenence">Last Maintenence: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput date" id="last_maintenence" name="last_maintenence" value="{{equipment.last_maintenance}}"></td>
+				<td class="formCell"><span class="labelText"><em>Please enter date in YYYY-MM-DD Format!</em></span></td>
+			</tr>
+			<tr>		
+				<td class="formCell formLabel"><label for="employee_steward">Employee Steward: </label></td>
+				<td class="formCell">
+					<select class="resettableSelector" id="employee_steward" name="employee_steward" value="{{equipment.employee_steward}}">
+					<option value="null">null</option>
+					{{#each employees}}
+						<option value="{{id}}">{{first_name}} {{last_name}}</option>
+					{{/each}}
+					</select>
+				</td>
+				<td class="formCell"></td>
+			</tr>
+			<tr>
+				<td class="formCell" colspan="3">
+					<div class="instructions">
+						<em>Warning: If you enter a date in the valid format but with values that do not make an actual date,<br />
+						&emsp;&emsp;&emsp;&emsp;(e.g. 2018-99-99) a value of '0000-00-00' will be entered into the table for that date<br />
+						&emsp;&emsp;&emsp;&emsp;field's attribute.</em>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="formCell" colspan="3">
+					<button class="formButton" id="updateButton" type="submit">Update Equipment</button>
+					<button class="reset formButton" id="resetUpdatePage">Clear Inputs</button>
+					<button class="formButton" type="submit" name="canceled" value="cancel">Cancel</button>
+				</td>
+			</tr>
+		</tbody>	
+	</table>
+	<input type="hidden" name="id" value={{equipment.id}}>
+</form>
+
+<form action="/equipmentTable" method="post">
+	<button class="homePage" type="submit" value="Home Page" name="Home Page">Home Page</button>
+</form>
+{{#each jsscriptsUpdate}}
+	<script src="{{this}}"></script>
+{{/each}}
+<script defer>attributeSelected('building', {{equipment.building}});</script>
+<script defer>attributeSelected('employee_steward', '{{equipment.employee_steward}}');</script>
+<script defer>updateRow('{{equipment.id}}', 'Equipment', dateInputValidator(true));</script>
+<script defer>resetForm();</script>

@@ -1,0 +1,27 @@
+<div>
+	<h1>Welcome to Farm Database!</h1>
+	<h2>Please Use the Select Input Below to View a Table</h2>
+	<form action="/animalTable" method="post" id="tableSelectorForm">
+		<label for="tableViewRequest">Table Select:</label>
+		<select id ="tableSelector" name="tableViewRequest">
+			<option value="animal">Animal</option>
+			<option value="animalFeed">Animal_Feed</option>
+			<option value="animalType">Animal_Type</option>
+			<option value="building">Building</option>
+			<option value="employee">Employee</option>
+			<option value="employeePlot">Employee_Plot</option>
+			<option value="equipment">Equipment</option>
+			<option value="feed">Feed</option>
+			<option value="plant">Plant</option>
+			<option value="plantManure">Plant_Manure</option>
+			<option value="plantType">Plant_Type</option>
+			<option value="plot">Plot</option>
+		</select>	
+		<button type="submit">Click Here to View Table</button>
+	</form>
+	<p>Note: Tables can be filtered and/or modified once viewed.</p>
+</div>
+{{#each jsscriptsHomePage}}
+	<script src="{{this}}"></script>
+{{/each}}
+<script defer>tableSelect();</script>

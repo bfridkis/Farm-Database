@@ -1,0 +1,61 @@
+<h1>{{title}}</h1>	
+<form id="updateEmployeePlot" action="/employeePlotTable" method="post">
+	<table>
+		<tbody>
+			<tr>
+				<td class="formCell formLabel"><label for="plot_id">Plot ID: </label></td>
+				<td class="formCell">
+					<select class="resettableSelector" id="plot_id" name="plot_id">
+					<option value="all">*</option>
+					{{#each plots}}
+						<option value="{{id}}">{{id}}</option>
+					{{/each}}
+					</select>
+				</td>
+				<td class="formCell"><span class="labelText"><em>Combination of Plot ID and Employee ID must be unique.</em></span></td>
+			<tr>	
+				<td class="formCell formLabel"><label for="employee_id">Employee ID: </label>
+				<td class="formCell">
+					<select class="resettableSelector" id="employee_id" name="employee_id">
+					<option value="all">*</option>
+					{{#each employees}}
+						<option value="{{id}}">{{id}}</option>
+					{{/each}}
+					</select>
+				</td>
+				<td class="formCell"><span class="labelText"><em>Combination of Plot ID and Employee ID must be unique.</em></span></td>
+			</tr>
+			<tr>
+				<td class="formCell" colspan="3">
+					<button class="formButton" id="updateButton" type="submit">Update Employee Plot</button>
+					<button class="formButton" type="submit" name="canceled" value="cancel">Cancel</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="hidden" name="~plot_id" value='{{employee_plot.plot_id}}'>
+	<input type="hidden" name="~employee_id" value={{employee_plot.employee_id}}>
+</form>
+<table style="display:none">
+	<thead>
+		<th>Plot ID</th>
+		<th>Employee ID</th>
+	</thead>
+	<tbody>
+		{{#each employee_plotsUniqueCheckForUpdate}}
+		<tr>
+			<td class="plot_idRowDataUnique">{{plot_id}}</td>
+			<td class="employee_idRowDataUnique">{{employee_id}}</td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+<form action="/employeePlotTable" method="post">
+	<button class="homePage" type="submit" value="Home Page" name="Home Page">Home Page</button>
+</form>
+{{#each jsscriptsUpdate}}
+	<script src="{{this}}"></script>
+{{/each}}
+<script defer>attributeSelected('plot_id', '{{employee_plot.plot_id}}');</script>
+<script defer>attributeSelected('employee_id', {{employee_plot.employee_id}});</script>
+<script defer>updateRow('{{employee_plot.employee_id}}~{{employee_plot.plot_id}}', 'EmployeePlot', null, null, uniqueValidator.bind(null, [["plot_id", "employee_id"]], ["{{employee_plot.plot_id}}{{employee_plot.employee_id}}"]));</script>

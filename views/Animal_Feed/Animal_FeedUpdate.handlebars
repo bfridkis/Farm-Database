@@ -1,0 +1,63 @@
+<h1>{{title}}</h1>	
+<form id="updateAnimalFeed" action="/animalFeedTable" method="post">
+	<table>
+		<tbody>
+			<tr>
+				<td class="formCell formLabel"><label for="animal_name">Animal Name: </label></td>
+				<td class="formCell">
+					<select class="resettableSelector" id="animal_name" name="animal_name">
+					<option value="all">*</option>
+					{{#each animal_types}}
+						<option value="{{name}}">{{name}}</option>
+					{{/each}}
+					</select>
+				</td>
+				<td class="formCell"><span class="labelText"><em>Combination of Animal Name and Feed ID must be unique.</em></span></td>
+			<tr>	
+				<td class="formCell formLabel"><label for="feed_id">Feed ID: </label>
+				<td class="formCell">
+					<select class="resettableSelector" id="feed_id" name="feed_id">
+					<option value="all">*</option>
+					{{#each feeds}}
+						<option value="{{id}}">{{id}}</option>
+					{{/each}}
+					</select>
+				</td>
+				<td class="formCell"><span class="labelText"><em>Combination of Animal Name and Feed ID must be unique.</em></span></td>
+			</tr>
+			<tr>
+				<td class="formCell" colspan="3">
+					<button class="formButton" id="updateButton" type="submit">Update Animal_Feed</button>
+					<button class="formButton" type="submit" name="canceled" value="cancel">Cancel</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="hidden" name="~animal_name" value='{{animal_feed.animal_name}}'>
+	<input type="hidden" name="~feed_id" value={{animal_feed.feed_id}}>
+</form>
+
+<table style="display:none">
+	<thead>
+		<th>Animal Name</th>
+		<th>Feed ID</th>
+	</thead>
+	<tbody>
+		{{#each animal_feedsUniqueCheckForUpdate}}
+		<tr>
+			<td class="animal_nameRowDataUnique">{{animal_name}}</td>
+			<td class="feed_idRowDataUnique">{{feed_id}}</td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+
+<form action="/animalFeedTable" method="post">
+	<button class="homePage" type="submit" value="Home Page" name="Home Page">Home Page</button>
+</form>
+{{#each jsscriptsUpdate}}
+	<script src="{{this}}"></script>
+{{/each}}
+<script defer>attributeSelected('animal_name', '{{animal_feed.animal_name}}');</script>
+<script defer>attributeSelected('feed_id', {{animal_feed.feed_id}});</script>
+<script defer>updateRow('{{animal_feed.feed_id}}~{{animal_feed.animal_name}}', 'AnimalFeed', null, null, uniqueValidator.bind(null, [["animal_name", "feed_id"]], ["{{animal_feed.animal_name}}{{animal_feed.feed_id}}"]));</script>

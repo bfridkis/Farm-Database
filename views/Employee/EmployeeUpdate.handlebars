@@ -1,0 +1,82 @@
+<h1>{{title}}</h1>	
+<form id="updateEmployee" action="/employeeTable" method="post">
+	<table>
+		<tbody>
+			<tr>
+				<td class="formCell formLabel"><label for="first_name">First Name: </label>
+				<td class="formCell"><input type="text" class="resettableInput notNull" id="first_name" name="first_name" value="{{employee.first_name}}">
+				<td class="formCell"><span class="labelText"><em>Combination of First and Last Name must be unique.</em></span></td>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="last_name">Last Name: </label>
+				<td class="formCell"><input type="text" class="resettableInput notNull" id="last_name" name="last_name" value="{{employee.last_name}}">
+				<td class="formCell"><span class="labelText"><em>Combination of First and Last Name must be unique.</em></span></td>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="dob">Date of Birth: </label>
+				<td class="formCell"><input type="text" class="resettableInput date" id="dob" name="dob" value="{{employee.dob}}">
+				<td class="formCell"><span class="labelText"><em>Please enter date in YYYY-MM-DD Format!</em></span>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="hourly_wage">Hourly Wage: </label>
+				<td class="formCell"><input type="text" class="resettableInput numeric notNull" id="hourly_wage" name="hourly_wage" value="{{employee.hourly_wage}}">
+				<td class="formCell"><span class="labelText"><em>Hourly Wage must be a number greater than or equal to 0.</em></span>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="phone_number">Phone Number: </label>
+				<td class="formCell"><input type="text" class="resettableInput numeric notNull" id="phone_number" name="phone_number" value="{{employee.phone_number}}">
+				<td class="formCell"><span class="labelText"><em>Phone Number must be a 10 digit number. (Do not include hyphens or apostrophes.)</em></span>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="address">Address: </label>
+				<td class="formCell"><input type="text" class="resettableInput" id="address" name="address" value="{{employee.address}}">
+				<td class="formCell">
+			</tr>
+			<tr>
+				<td class="formCell" colspan="3">
+					<div class="instructions">
+						<em>Warning: If you enter a date in the valid format but with values that do not make an actual date,<br />
+						&emsp;&emsp;&emsp;&emsp;(e.g. 2018-99-99) a value of '0000-00-00' will be entered into the table for that date<br />
+						&emsp;&emsp;&emsp;&emsp;field's attribute.</em>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="formCell" colspan="3">
+					<button class="formButton" id="updateButton" type="submit">Update Employee</button>
+					<button class="reset formButton" id="resetUpdatePage">Clear Inputs</button>
+					<button class="formButton" type="submit" name="canceled" value="cancel">Cancel</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="hidden" name="id" value={{employee.id}}>
+</form>
+
+<table style="display:none">
+	<thead>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Date of Birth</th>
+		<th>Hourly Wage</th>
+		<th>Phone Number</th>
+		<th>Address</th>
+	</thead>
+	<tbody>
+		{{#each employeesUniqueCheckForUpdate}}
+		<tr>
+			<td class="first_nameRowDataUnique">{{first_name}}</td>
+			<td class="last_nameRowDataUnique">{{last_name}}</td>
+		</tr>
+		{{/each}}
+	</tbody>	
+</table>
+
+<form action="/employeeTable" method="post">
+	<button class="homePage" type="submit" value="Home Page" name="Home Page">Home Page</button>
+</form>
+{{#each jsscriptsUpdate}}
+	<script src="{{this}}"></script>
+{{/each}}
+<script defer>updateRow('{{employee.id}}', 'Employee', dateInputValidator(true), numericInputValidator.bind(null, true, [{phone_number : 10}]), uniqueValidator.bind(null, [["first_name", "last_name"]], ["{{employee.first_name}}{{employee.last_name}}"]));</script>
+<script defer>resetForm();</script>

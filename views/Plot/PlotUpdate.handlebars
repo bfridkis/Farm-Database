@@ -1,0 +1,80 @@
+<h1>{{title}}</h1>	
+<form id="updatePlot" action="/plotTable" method="post">
+	<table>
+		<tbody>
+			<tr>
+				<td class="formCell"><label for="type">Type: </label></td>
+				<td class="formCell">
+					<select class="resettableSelector" id="type" name="type">
+						<option value="Pasture">Pasture</option>
+						<option value="Nightshade">Nightshade</option>
+						<option value="Legume">Legume</option>
+						<option value="Root Vegetable">Root Vegetable</option>
+						<option value="Woodland">Woodland</option>
+						<option value="Spring Wheat">Spring Wheat</option>
+						<option value="Winter Wheat">Winter Wheat</option>
+						<option value="Oats">Oats</option>
+						<option value="Legume">Legume</option>
+						<option value="Fruit">Fruit</option>
+						<option value="N/A">N/A</option>
+					</select>
+				</td>
+				<td class="formCell"></td>
+			</tr>
+			<tr>
+				<td class="formCell"><label for="cycle_status">Cycle Status: </label></td>
+				<td class="formCell">
+					<select class="resettableSelector" id="cycle_status" name="cycle_status">
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select>
+				</td>
+				<td class="formCell"></td>
+			</tr>
+			<tr>
+				<td class="formCell"><label for="previous_type">Previous Type: </label></td>
+				<td class="formCell">
+					<select class="resettableSelector" id="previous_type" name="previous_type">
+						<option value="null">null</option>
+						<option value="Pasture">Pasture</option>
+						<option value="Nightshade">Nightshade</option>
+						<option value="Legume">Legume</option>
+						<option value="Root Vegetable">Root Vegetable</option>
+						<option value="Woodland">Woodland</option>
+						<option value="Spring Wheat">Spring Wheat</option>
+						<option value="Winter Wheat">Winter Wheat</option>
+						<option value="Oats">Oats</option>
+						<option value="Legume">Legume</option>
+						<option value="Fruit">Fruit</option>
+						<option value="N/A">N/A</option>
+					</select>
+				</td>
+				<td class="formCell"></td>
+			</tr>
+			<tr>
+				<td class="formCell" colspan="3">
+					<button class="formButton" id="updateButton" type="submit">Update Plot</button>
+					<button class="reset formButton" id="resetUpdatePage">Clear Inputs</button>
+					<button class="formButton" type="submit" name="canceled" value="cancel">Cancel</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="hidden" name="id" value={{plot.id}}>
+</form>
+
+<form action="/employeeTable" method="post">
+	<button class="homePage" type="submit" value="Home Page" name="Home Page">Home Page</button>
+</form>
+{{#each jsscriptsUpdate}}
+	<script src="{{this}}"></script>
+{{/each}}
+<script defer>attributeSelected('type', '{{plot.type}}');</script>
+<script defer>attributeSelected('cycle_status', '{{plot.cycle_status}}');</script>
+<script defer>attributeSelected('previous_type', '{{plot.previous_type}}');</script>
+<script defer>updateRow('{{plot.id}}', 'Plot');</script>
+<script defer>resetForm();</script>

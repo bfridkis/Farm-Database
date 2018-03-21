@@ -1,0 +1,45 @@
+<h1>{{title}}</h1>	
+<form id="updateFeed" action="/feedTable" method="post">
+	<table>
+		<tbody>
+			<tr>
+				<td class="formCell formLabel"><label for="name">Name: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput" id="name" name="name" value="{{feed.name}}"></td>
+				<td class="formCell"></td>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="source">Source: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput" id="source" name="source" value="{{feed.source}}"></td>
+				<td class="formCell"></td>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="inventory_units">Inventory Units: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput" id="inventory_units" name="inventory_units" value="{{feed.inventory_units}}"></td>
+				<td class="formCell"></td>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="inventory_remaining">Inventory Remaining: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput numeric" id="inventory_remaining" name="inventory_remaining" value={{feed.inventory_remaining}}></td>
+				<td class="formCell"><span class="labelText"><em>Inventory Remaining must be an integer greater than or equal to 0.</em></span></td>
+			</tr>
+			<tr>
+				<td class="formCell" colspan="3">
+					<button class="formButton" id="updateButton" type="submit">Update Feed</button>
+					<button class="reset formButton" id="resetUpdatePage">Clear Inputs</button>
+					<button class="formButton" type="submit" name="canceled" value="cancel">Cancel</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="hidden" name="id" value={{feed.id}}>
+</form>
+
+<form action="/employeeTable" method="post">
+	<button class="homePage" type="submit" value="Home Page" name="Home Page">Home Page</button>
+</form>
+{{#each jsscriptsUpdate}}
+	<script src="{{this}}"></script>
+{{/each}}
+<script defer>updateRow('{{feed.id}}', 'Feed');</script>
+<script defer>resetForm();</script>
+<script defer>numericInputValidator();</script>

@@ -1,0 +1,72 @@
+<h1>{{title}}</h1>	
+<form id="updatePlant" action="/plantTable" method="post">
+	<table>
+		<tbody>
+			<tr>		
+				<td class="formCell formLabel"><label for="plot">Plots: </label></td>
+				<td class="formCell">
+					<select class="resettableSelector" id="plot" name="plot">
+					<option value="all">*</option>
+					<option value="null">null</option>
+					{{#each plots}}
+						<option value="{{id}}">{{id}}</option>
+					{{/each}}
+					</select>
+				</td>
+				<td class="formCell"></td>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="date_planted">Date Planted: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput date" id="date_planted" name="date_planted" value="{{plant.date_planted}}"></td>
+				<td class="formCell"><span class="labelText"><em>Please enter date in YYYY-MM-DD Format!</em></span></td>
+			</tr>
+			<tr>
+				<td class="formCell formLabel"><label for="harvest_date">Harvest Date: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput date" id="harvest_date" name="harvest_date" value="{{plant.harvest_date}}"></td>
+				<td class="formCell"><span class="labelText"><em>Please enter date in YYYY-MM-DD Format!</em></span></td>
+			</tr>
+			<tr>		
+				<td class="formCell formLabel"><label for="type">Type: </label></td>
+				<td class="formCell">
+					<select class="resettableSelector" id="type" name="type">
+					<option value="all">*</option>
+					<option value="null">null</option>
+					{{#each plant_types}}
+						<option value="{{name}}">{{name}}</option>
+					{{/each}}
+					</select>
+				</td>
+				<td class="formCell"></td>
+			</tr>
+			<tr>
+				<td class="formCell" colspan="3">
+					<div class="instructions">
+						<em>Warning: If you enter a date in the valid format but with values that do not make an actual date,<br />
+						&emsp;&emsp;&emsp;&emsp;(e.g. 2018-99-99) a value of '0000-00-00' will be entered into the table for that date<br />
+						&emsp;&emsp;&emsp;&emsp;field's attribute.</em>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="formCell" colspan="3">
+					<button class="formButton" id="updateButton" type="submit">Update Plant</button>
+					<button class="reset formButton" id="resetUpdatePage">Clear Inputs</button>
+					<button class="formButton" type="submit" name="canceled" value="cancel">Cancel</button>
+				</td>
+			</tr>
+		</tbody>	
+	</table>
+	<input type="hidden" name="id" value={{plant.id}}>
+</form>
+
+<form action="/equipmentTable" method="post">
+	<button class="homePage" type="submit" value="Home Page" name="Home Page">Home Page</button>
+</form>
+{{#each jsscriptsUpdate}}
+	<script src="{{this}}"></script>
+{{/each}}
+<script defer>attributeSelected('plot', {{plant.plot}});</script>
+<script defer>attributeSelected('type', '{{plant.type}}');</script>
+<script defer>updateRow('{{plant.id}}', 'Plant');</script>
+<script defer>dateInputValidator();</script>
+<script defer>resetForm();</script>

@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+	<title>Farm Database - Final Project - CS 340 - Benjamin Fridkis</title>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+	{{#each css}}
+		<link rel="stylesheet" type="text/css" href="{{this}}"></script>
+	{{/each}}
+</head>
+<body>
+	{{{body}}}
+</body>
+{{#each jsscripts}}
+	<script src="{{this}}"></script>
+{{/each}}
+</html>

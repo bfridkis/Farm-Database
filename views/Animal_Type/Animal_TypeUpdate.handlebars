@@ -1,0 +1,66 @@
+<h1>{{title}}</h1>	
+<form id="updateAnimalType" action="/animalTypeTable" method="post">
+	<table>
+		<tbody>
+			<tr>
+				<td class="formCell formLabel"><label for="name">Name: </label></td>
+				<td class="formCell">
+					<input type="text" class="resettableInput notNull" id="name" name="name" value="{{animal_type.name}}">
+				</td>
+				<td class="formCell">
+					<span class="labelText labelTextUnderlined">
+						<em>Name cannot be null and must be unique.</em>
+					</span>
+				</td>					
+			</tr>
+			<tr>
+				<td class="formCell"><label for="size">Size: </label></td>
+				<td class="formCell">
+					<select class="resettableSelector" id="size" name="size">
+						<option value="all">*</option>
+						<option value="null">null</option>
+						<option value="<10lbs"><10lbs</option>
+						<option value="10-30lbs">10-30lbs</option>
+						<option value="31-50lbs">31-50lbs</option>
+						<option value="51-100lbs">51-100lbs</option>
+						<option value="101-600lbs">101-600lbs</option>
+						<option value="601+lbs">601+lbs</option>
+					</select>
+				</td>
+				<td class="formCell"></td>
+			</tr>
+			<tr>
+				<td class="formCell" colspan="3">
+					<button class="formButton" id="updateButton" type="submit">Update Animal_Type</button>
+					<button class="reset" id="resetUpdatePage">Clear Inputs</button>
+					<button class="formButton" type="submit" name="canceled" value="cancel">Cancel</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>	
+	<input type="hidden" name="~name" value='{{animal_type.name}}'>
+	<input type="hidden" name="~size" value={{animal_type.size}}>
+</form>
+
+<table style="display:none">
+	<thead>
+		<th>Name</th>
+	</thead>
+	<tbody>
+		{{#each animal_typesUniqueCheckForUpdate}}
+		<tr>
+			<td class="nameRowDataUnique">{{name}}</td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+
+<form action="/animalTypeTable" method="post">
+	<button class="homePage" type="submit" value="Home Page" name="Home Page">Home Page</button>
+</form>
+{{#each jsscriptsUpdate}}
+	<script src="{{this}}"></script>
+{{/each}}
+<script defer>attributeSelected('size', '{{animal_type.size}}');</script>
+<script defer>updateRow('{{animal_feed.name}}', 'AnimalType', null, null, uniqueValidator.bind(null, ["name"], ["{{animal_type.name}}"]));</script>
+<script defer>resetForm();</script>

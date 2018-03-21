@@ -1,0 +1,62 @@
+<h1>{{title}}</h1>	
+<form id="updatePlantManure" action="/plantManureTable" method="post">
+	<table>
+		<tbody>
+			<tr>
+				<td class="formCell formLabel"><label for="plant_name">Plant Name: </label></td>
+				<td class="formCell">
+					<select class="resettableSelector" id="plant_name" name="plant_name">
+					<option value="all">*</option>
+					{{#each plant_types}}
+						<option value="{{name}}">{{name}}</option>
+					{{/each}}
+					</select>
+				</td>
+				<td class="formCell"><span class="labelText"><em>Combination of Plant Name and Manure Type must be unique.</em></span></td>
+			<tr>	
+				<td class="formCell formLabel"><label for="manure_type">Manure Type: </label>
+				<td class="formCell">
+					<select class="resettableSelector" id="manure_type" name="manure_type">
+					<option value="all">*</option>
+					{{#each animal_types}}
+						<option value="{{name}}">{{name}}</option>
+					{{/each}}
+					</select>
+				</td>
+				<td class="formCell"><span class="labelText"><em>Combination of Plant Name and Manure Type must be unique.</em></span></td>
+			</tr>
+			<tr>
+				<td class="formCell" colspan="3">
+					<button class="formButton" id="updateButton" type="submit">Update Plant Manure</button>
+					<button class="formButton" type="submit" name="canceled" value="cancel">Cancel</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</table>
+	<input type="hidden" name="~plant_name" value='{{plant_manure.plant_name}}'>
+	<input type="hidden" name="~manure_type" value='{{plant_manure.manure_type}}'>
+</form>
+<table style="display:none">
+	<thead>
+		<th>Plant Name</th>
+		<th>Manure Type ID</th>
+	</thead>
+	<tbody>
+		{{#each plant_manuresUniqueCheckForUpdate}}
+		<tr>
+			<td class="plant_nameRowDataUnique">{{plant_name}}</td>
+			<td class="manure_typeRowDataUnique">{{manure_type}}</td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+<form action="/employeePlotTable" method="post">
+	<button class="homePage" type="submit" value="Home Page" name="Home Page">Home Page</button>
+</form>
+{{#each jsscriptsUpdate}}
+	<script src="{{this}}"></script>
+{{/each}}
+<script defer>attributeSelected('plant_name', '{{plant_manure.plant_name}}');</script>
+<script defer>attributeSelected('manure_type', '{{plant_manure.manure_type}}');</script>
+<script defer>updateRow('{{plant_manure.manure_type}}~{{plant_manure.plant_name}}', 'PlantManure', null, null, uniqueValidator.bind(null, [["plant_name", "manure_type"]], ["{{plant_manure.plant_name}}{{plant_manure.manure_type}}"]));</script>

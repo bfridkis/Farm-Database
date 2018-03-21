@@ -1,0 +1,64 @@
+<h1>{{title}}</h1>	
+<form id="updatePlantType" action="/plantTypeTable" method="post">
+	<table>
+		<tbody>
+			<tr>
+				<td class="formCell formLabel"><label for="name">Name: </label></td>
+				<td class="formCell"><input type="text" class="resettableInput notNull" id="name" name="name" value="{{plant_type.name}}"></td>
+				<td class="formCell">
+					<span class="labelText labelTextUnderlined">
+						<em>Name cannot be null and must be unique.</em>
+					</span>
+				</td>					
+			</tr>
+			<tr>
+				<td class="formCell"><label for="growing_season">Growing Season: </label></td>
+				<td class="formCell">
+					<select class="resettableSelector" id="growing_season" name="growing_season">
+						<option value="all">*</option>
+						<option value="null">null</option>
+						<option value="Fall">Fall</option>
+						<option value="Winter">Winter</option>
+						<option value="Spring">Spring</option>
+						<option value="Summer">Summer</option>
+					</select>
+				</td>
+				<td class="formCell"></td>
+			</tr>
+			<tr>
+				<td class="formCell" colspan="3">
+					<button class="formButton" id="updateButton" type="submit">Update Plant_Type</button>
+					<button class="reset" id="resetUpdatePage">Clear Inputs</button>
+					<button class="formButton" type="submit" name="canceled" value="cancel">Cancel</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>	
+	<input type="hidden" name="~name" value='{{plant_type.name}}'>
+	<input type="hidden" name="~growing_season" value={{plant_type.growing_season}}>
+</form>
+<table style="display:none">
+	<thead>
+		<th>Name</th>
+		<th>Size</th>
+	</thead>
+	<tbody>
+		{{#each plant_typesUniqueCheckForUpdate}}
+		<tr>
+			<td class="nameRowDataUnique">{{name}}</td>
+			<td class="alignCellContentCenter">{{growing_season}}</td>
+			<td class="deleteButton"><button onclick="deleteRow('{{name}}', 'plantType')">Delete</button></td>
+			<td class="updateLink"><a href="/plantTypeTable/{{name}}">Update</a></td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+<form action="/plantTypeTable" method="post">
+	<button class="homePage" type="submit" value="Home Page" name="Home Page">Home Page</button>
+</form>
+{{#each jsscriptsUpdate}}
+	<script src="{{this}}"></script>
+{{/each}}
+<script defer>attributeSelected('growing_season', '{{plant_type.growing_season}}');</script>
+<script defer>updateRow('{{plant_feed.name}}', 'PlantType', null, null, uniqueValidator.bind(null, ["name"], ["{{plant_type.name}}"]));</script>
+<script defer>resetForm();</script>
