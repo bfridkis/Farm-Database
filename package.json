@@ -1,0 +1,17 @@
+{
+  "name": "FinalProject-CS340-BenjaminFridkis",
+  "version": "1.0.0",
+  "description": "Farm Database for Final Project - CS340",
+  "main": "FarmDatabase-FinalProject-CS340.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "BenjaminFridkis",
+  "license": "None",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.2",
+    "express-handlebars": "^2.0.1",
+    "mysql": "^2.8.0"
+  }
+}
