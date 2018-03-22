@@ -47,7 +47,7 @@ app.set('makeSQL', makeSQL);
 app.set('selectTable', selectTable);
 
 app.get('/', function(req,res,next){
-	mysql.pool.query(createTableSQL, 
+	mysql.pool.query(createTablesSQL, 
 		function(err, rows, fields){
 			if(err){
 				res.write(JSON.stringify(err));
