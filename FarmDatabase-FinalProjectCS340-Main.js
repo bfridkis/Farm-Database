@@ -33,6 +33,7 @@ var mysql = require('./dbcon.js');
 var selectTables = require('./selectTables.js');
 var makeSQL = require('./makeSQL.js');
 var selectTable = require('./selectTable.js');
+var createTablesSQL = require('./createTableSQL.js');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
@@ -46,11 +47,20 @@ app.set('makeSQL', makeSQL);
 app.set('selectTable', selectTable);
 
 app.get('/', function(req,res,next){
-	context = {};
-	context.jsscriptsHomePage = ['tableSelect.js'];
-	context.css = ["style.css", "homePageStyle.css"];
-	context.port = process.env.PORT;
-	res.render('home', context)
+	mysql.pool.query(createTableSQL, 
+		function(err, rows, fields){
+			if(err){
+				res.write(JSON.stringify(err));
+				res.end();
+			}
+			else{
+				context = {};
+				context.jsscriptsHomePage = ['tableSelect.js'];
+				context.css = ["style.css", "homePageStyle.css"];
+				context.port = process.env.PORT;
+				res.render('home', context)
+			}
+		});
 });
 
 app.use('/animalTable', require('./Animal/animal.js'));
