@@ -442,8 +442,8 @@ INSERT INTO plant (plot, date_planted, harvest_date, type)
 			(81, '2017-03-27', '2017-07-13', 'Tomato'),
 			(231, '2018-05-05', '2015-07-29', 'Cantelope'),
 			(231, '2018-05-05', '2015-07-29', 'Cantelope'),
-			(241, '2018-05-05', '2015-07-29', 'Cantelope'),
-			(241, '2018-05-05', '2015-07-29', 'Cantelope');
+			(231, '2018-05-05', '2015-07-29', 'Cantelope'),
+			(231, '2018-05-05', '2015-07-29', 'Cantelope');
 
 -- PLANT_MANURE TABLE INSERTIONS --
 INSERT INTO plant_manure (plant_name, manure_type)
