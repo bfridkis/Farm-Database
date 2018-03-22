@@ -13,7 +13,7 @@
     "express": "^4.13.2",
     "express-handlebars": "^2.0.1",
     "mysql": "^2.8.0"
-  }
+  },
    "repository": {
     "type": "git",
     "url": "https://github.com/bfridkis/Farm-Database"
