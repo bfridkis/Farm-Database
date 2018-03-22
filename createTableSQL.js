@@ -1,4 +1,4 @@
-module.exports = "CREATE TABLE plot (
+module.exports.createTablesStatements = "CREATE TABLE plot (
   id int(11) NOT NULL AUTO_INCREMENT,
   type ENUM('Pasture', 'Nightshade', 'Legume', 'Brassica', 'Root Vegetable', 
 	'Woodland', 'Spring Wheat', 'Winter Wheat', 'Oats', 'Fruit') NOT NULL,
