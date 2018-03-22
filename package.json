@@ -14,4 +14,21 @@
     "express-handlebars": "^2.0.1",
     "mysql": "^2.8.0"
   }
+   "repository": {
+    "type": "git",
+    "url": "https://github.com/bfridkis/Farm-Database"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express",
+	"express-handlebars",
+	"mysql",
+	"ajax",
+	"ajax-request",
+	"javascript",
+	"cleardb",
+	"http-request",
+  ],
+  "license": "MIT"
 }
