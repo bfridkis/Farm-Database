@@ -49,6 +49,7 @@ app.get('/', function(req,res,next){
 	context = {};
 	context.jsscriptsHomePage = ['tableSelect.js'];
 	context.css = ["style.css", "homePageStyle.css"];
+	context.port = process.env.PORT;
 	res.render('home', context)
 });
 
