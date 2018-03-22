@@ -28,7 +28,7 @@
 	"ajax-request",
 	"javascript",
 	"cleardb",
-	"http-request",
+	"http-request"
   ],
   "license": "MIT"
 }
