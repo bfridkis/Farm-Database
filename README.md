@@ -16,3 +16,5 @@ The website uses static JavaScript to perform data validation against user entri
 type and formatting requirements, and entries that may violate database constraints (namely unique constraints). 
 Node.js is the server platform used to run the website, and Express is the library package that aids in the data handling 
 processes and structure.
+
+The app can be found hosted on Heroku via this link: http://farm-database.herokuapp.com/
