@@ -6,7 +6,7 @@
 ** This module provides a function that will receive an operation
 ** type specification (INSERT or UPDATE), a table name, and an 
 ** express request object, and will output a query with placeholders
-** along with an array or inserts (in an object body). The function
+** along with an array of inserts (in an object body). The function
 ** will disregard attributes with leading '~' characters, such that
 ** any key-value pairs of the request body that should not be
 ** included in the query and inserts should be prefaced with an '~'
