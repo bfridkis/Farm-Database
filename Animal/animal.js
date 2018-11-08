@@ -17,9 +17,9 @@
 ** is that a second copy of the entire table must be provided for
 ** both viewing (specifically when filtering) and updating, so a
 ** check of the entire table can be made against user-input values
-** to make sure an attempt to create a duplicate is made (and hence
-** to avoid providing the sql error directly to the user). The 
-** second copy of the table is rendered via the table and update
+** to make sure an attempt to create a duplicate is not made (and 
+** hence to avoid providing the sql error directly to the user). 
+** The second copy of the table is rendered via the table and update
 ** handlebars with its style attribute of display set to none.
 *******************************************************************/
 module.exports = function(){
