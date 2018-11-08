@@ -21,7 +21,7 @@
 ** an object into which response data will be stored,
 ** the name of the table to render, an array of table names 
 ** containing the names of each table needed, and optional agruments
-** filterCriteria and uniqueCheckFlag, which are arrays with indexs
+** filterCriteria and uniqueCheckFlag, which are arrays with indexes
 ** corresponding to the indexes of tableNames (e.g. tableNames[0] 
 ** has filter criteria given by filterCriteria[0] and a unique-check
 ** indicator flag found at uniqueCheckFlag[0]. All of these besides
