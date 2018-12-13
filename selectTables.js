@@ -51,7 +51,7 @@ module.exports = function(res, mysql, context, complete, tableNames, filterCrite
 									if(row[key] === null || row[key] === ''){
 										row[key] = "null";
 									}
-									//This code reformats dates send back from express's
+									//This code reformats dates sent back from express's
 									//mysql object with the timestamp truncated.
 									else if(typeof(row[key]) === 'object'){
 										row[key] = new Date(row[key]);
